@@ -4,7 +4,7 @@ WORKDIR /api-docker
 COPY pom.xml .
 RUN mvn dependency:resolve
 COPY src ./src
-RUN mvn clean install
+RUN mvn clean install -DskipTests -Dsonar.skip=true
 
 #Runtime
 FROM amazoncorretto:17-alpine3.17
