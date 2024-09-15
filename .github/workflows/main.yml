@@ -3,8 +3,10 @@ name: Build
 on:
   push:
     branches:
-      - main
-
+      - '**'  # Rodar em qualquer branch
+  pull_request:
+    branches:
+      - '**'  # Também rodar em qualquer PR de qualquer branch
 
 jobs:
   build:
@@ -13,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0  # Desabilitar clones rasos para uma análise mais relevante
       - name: Set up JDK 17
         uses: actions/setup-java@v1
         with:
@@ -32,7 +34,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
         env:
-         # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: sqp_6934ecbe72b1e32e85fff170b8232fda0209c51e
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necessário para obter informações de PR, se houver
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: http://localhost:9000
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=maia
