@@ -1,4 +1,9 @@
+networks:
+  maianet:
+    driver: bridge
+
 version: "3.3"
+
 services:
   api:
     build:
@@ -9,6 +14,40 @@ services:
     networks:
       - maianet
 
-networks:
-  maianet:
-    driver: bridge
+  ## SONAR ##
+  sonarqube:
+    image: sonarqube:lts-community
+    user: "1000:1000"
+    depends_on:
+      - db-sonar
+    networks:
+      - maianet
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db-sonar:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonar_data:/opt/sonarqube/data        # Dados do SonarQube (projetos, configurações)
+      - sonar_logs:/opt/sonarqube/logs        # Logs do SonarQube
+      - sonar_extensions:/opt/sonarqube/extensions # Extensões e plugins
+      - sonar_temp:/opt/sonarqube/temp        # Diretório temporário
+
+  db-sonar:
+    image: postgres:14.12-alpine3.18
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonar
+    networks:
+      - maianet
+    volumes:
+      - sonar_db:/var/lib/postgresql/data
+
+volumes:
+  sonar_data:
+  sonar_logs:
+  sonar_extensions:
+  sonar_temp:
+  sonar_db:
