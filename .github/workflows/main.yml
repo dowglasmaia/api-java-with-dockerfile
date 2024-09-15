@@ -41,10 +41,11 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn clean verify sonar:sonar \
-        -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
         -Dsonar.host.url=https://sonarcloud.io \
         -Dsonar.organization=dowglasmaia \
         -Dsonar.projectKey=dowglasmaia_api-java-with-dockerfile
+
 
 
     - name: Quality Gate
