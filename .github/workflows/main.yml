@@ -6,7 +6,7 @@ on:
       - '**'  # Rodar em qualquer branch
   pull_request:
     branches:
-      - '**'  # Rodar em qualquer PR de qualquer branch
+      - '**'  # Também rodar em qualquer PR de qualquer branch
 
 jobs:
   build:
@@ -20,6 +20,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
+        distribution: 'temurin'  # Definir a distribuição do JDK
 
     - name: Cache Maven packages
       uses: actions/cache@v3
@@ -47,8 +48,3 @@ jobs:
     - name: Quality Gate
       run: |
         curl -u sqp_1eab803a27c4c8c8b884bdbb7b6017130b4635c0 "http://localhost:9000/api/qualitygates/project_status?projectKey=maia" | grep -q '"status":"OK"' || exit 1
-
-    # usar secret em vez de hardcoding o token
-    # Exemplo:
-    # env:
-    #   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
