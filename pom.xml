@@ -29,6 +29,8 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<sonar.organization>dowglasmaia</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 
 	<dependencies>
@@ -42,6 +44,9 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+
+
 	</dependencies>
 
 	<build>
@@ -107,26 +112,6 @@
 				</configuration>
 			</plugin>
 
-			<!--<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<id>check-quality-gate</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>bash</executable>
-							<arguments>
-								<argument>${basedir}/check-quality-gate.sh</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>-->
 
 		</plugins>
 	</build>
