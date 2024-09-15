@@ -39,9 +39,13 @@ jobs:
 
     - name: Build and analyze
       env:
-        #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Necessário para acessar o GitHub
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Token do SonarCloud
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=dowglasmaia_api-java-with-dockerfile -Dsonar.organization=dowglasmaia -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: mvn clean verify sonar:sonar \
+        -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+        -Dsonar.host.url=https://sonarcloud.io \
+        -Dsonar.organization=dowglasmaia \
+        -Dsonar.projectKey=dowglasmaia_api-java-with-dockerfile
+
 
     - name: Quality Gate
       run: |
