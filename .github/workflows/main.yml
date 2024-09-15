@@ -22,17 +22,12 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
 
-    - name: Build with Maven
-      run: mvn clean verify
-
-    - name: SonarQube Scan
-      env:
-        SONAR_TOKEN: sqp_1eab803a27c4c8c8b884bdbb7b6017130b4635c0
-      run: mvn sonar:sonar \
-        -Dsonar.projectKey=api-docker \
+    - name: Build and SonarQube Scan
+      run: mvn clean verify sonar:sonar \
+        -Dsonar.projectKey=maia \
         -Dsonar.host.url=http://localhost:9000 \
         -Dsonar.login=sqp_1eab803a27c4c8c8b884bdbb7b6017130b4635c0
 
     - name: Quality Gate
       run: |
-        curl -u sqp_1eab803a27c4c8c8b884bdbb7b6017130b4635c0 "http://localhost:9000/api/qualitygates/project_status?projectKey=api-docker" | grep -q '"status":"OK"' || exit 1
+        curl -u sqp_1eab803a27c4c8c8b884bdbb7b6017130b4635c0 "http://localhost:9000/api/qualitygates/project_status?projectKey=maia" | grep -q '"status":"OK"' || exit 1
