@@ -3,10 +3,10 @@ name: Java CI with Maven
 on:
   push:
     branches:
-      - '**'  # Rodar em qualquer branch
+      - '**'
   pull_request:
     branches:
-      - '**'  # Também rodar em qualquer PR de qualquer branch
+      - '**'
 
 jobs:
   build:
@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'  # Definir a distribuição do JDK
+        distribution: 'temurin'
 
     - name: Cache Maven packages
       uses: actions/cache@v3
@@ -29,22 +29,18 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
 
-    - name: Cache SonarQube packages
-      uses: actions/cache@v3
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
-
     - name: Build with Maven
       run: mvn clean verify
 
-    - name: SonarQube Scan
+    - name: SonarCloud Scan
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: mvn sonar:sonar \
-        -Dsonar.projectKey=maia \
-        -Dsonar.host.url=http://localhost:9000 \
-        -Dsonar.login=sqp_1eab803a27c4c8c8b884bdbb7b6017130b4635c0
+        -Dsonar.projectKey=api-java-with-dockerfile \
+        -Dsonar.organization=dowglasmaia \
+        -Dsonar.host.url=https://sonarcloud.io \
+        -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
     - name: Quality Gate
       run: |
-        curl -u sqp_1eab803a27c4c8c8b884bdbb7b6017130b4635c0 "http://localhost:9000/api/qualitygates/project_status?projectKey=maia" | grep -q '"status":"OK"' || exit 1
+        curl -u ${{ secrets.SONAR_TOKEN }} "https://sonarcloud.io/api/qualitygates/project_status?projectKey=<seu_project_key>" | grep -q '"status":"OK"' || exit 1
