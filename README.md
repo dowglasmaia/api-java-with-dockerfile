@@ -1,3 +1,10 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=api-docker&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=api-docker)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=api-docker&metric=bugs)](https://sonarcloud.io/summary/new_code?id=api-docker)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=api-docker&metric=coverage)](https://sonarcloud.io/summary/new_code?id=api-docker)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=api-docker&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=api-docker)
+
+---
+
 # **API Java With Dockerfile**
 
 
