@@ -46,21 +46,21 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                 </plugin>
 
-                <!-- Plugin SonarQube
+                <!-- Plugin SonarQube -->
                 <plugin>
                     <groupId>org.sonarsource.scanner.maven</groupId>
                     <artifactId>sonar-maven-plugin</artifactId>
                     <version>4.0.0.4121</version>
                 </plugin>
-                -->
 
-                <!-- Plugin JaCoCo
+
+                <!-- Plugin JaCoCo -->
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
                     <version>0.8.9</version>
                 </plugin>
-                -->
+
                 <!-- Plugin Surefire
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -72,7 +72,7 @@
 
         </pluginManagement>
         <plugins>
-            <!-- Plugin SonarQube
+            <!-- Plugin SonarQube  -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
@@ -86,14 +86,14 @@
                     </execution>
                 </executions>
             </plugin>
- -->
+
             <!-- Plugin Spring Boot -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <!-- Plugin JaCoCo
+            <!-- Plugin JaCoCo -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -117,7 +117,7 @@
                     </execution>
                 </executions>
             </plugin>
--->
+
             <!-- Plugin Surefire
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
